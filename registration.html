@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seed - Spectra</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cuprum:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <img src="logo.png" id="logo" alt="Logo">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <ul class="nav-links">
+            <li><a class="option" href="index.html" >Home</a></li>
+            <li><a class="option" href="events.html">Events</a></li>
+            <li><a class="option" style="background-color: black; color: white;" href="registration.html">Registration</a></li>
+            <li><a class="option" href="rules.html">Rules</a></li>
+            <li><a class="option" href="schedule.html">Schedule</a></li>
+            <li><a class="option" href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+
+            if (window.innerWidth <= 900) {
+                navLinks.classList.toggle('show');
+            }
+        }
+
+        // Optional: Hide nav if window is resized above 900px
+        window.addEventListener('resize', () => {
+            const navLinks = document.querySelector('.nav-links');
+            if (window.innerWidth > 900) {
+                navLinks.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+
+</html>
