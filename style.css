@@ -9,7 +9,7 @@
 
 body {
     background: #997aff;
-background: linear-gradient(72deg, rgba(153, 122, 255, 1) 0%, rgba(101, 207, 252, 1) 17%, rgba(153, 255, 130, 1) 36%, rgba(247, 235, 99, 1) 50%, rgba(255, 115, 115, 1) 79%, rgba(219, 120, 255, 1) 100%);
+	background: linear-gradient(72deg, rgba(153, 122, 255, 1) 0%, rgba(101, 207, 252, 1) 17%, rgba(153, 255, 130, 1) 36%, rgba(247, 235, 99, 1) 50%, rgba(255, 115, 115, 1) 79%, rgba(219, 120, 255, 1) 100%);
 }
 
 nav {
