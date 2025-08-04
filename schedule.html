@@ -150,7 +150,7 @@
         <label for="class">
           <h1 style="display: inline;">Choose a class: </h1>
         </label>
-        <select id="class" name="class">
+        <select id="class" name="class" onchange="update()">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -235,21 +235,96 @@
         </div>
       </div>
 
-      <script>
-        function toggleMenu() {
-          const navLinks = document.querySelector('.nav-links');
-          if (window.innerWidth <= 900) {
-            navLinks.classList.toggle('show');
-          }
-        }
+<script>
+  const eventToGradeMap = {
+    "event-color-palette": new Set(["Grade 1"]),
+    "event-art-space": new Set(["Grade 4"]),
+    "event-creative-writing": new Set(["Grade 3"]),
+    "event-dreamy-decor": new Set(["Grade 5"]),
+    "event-imagine-yourself-as": new Set(["Grade 5"]),
+    "event-stick-space": new Set(["Grade 2"]),
+    "event-carving": new Set(["Grade 6"]),
+    "event-bookmark-frames": new Set(["Grade 3"]),
+    "event-freeze-moment": new Set(["Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12"]),
+    "event-open-instruments": new Set(["Open for All"]),
+    "event-classical-dance": new Set(["Open for All"]),
+    "event-dress-up": new Set(["Grade 1"]),
+    "event-dress-up-show": new Set(["Grade 2"]),
+    "event-orator-singer": new Set(["Grade 3"]),
+    "event-adapt-a-tune": new Set(["Grade 4"]),
+    "event-mono-acting": new Set(["Grade 5"]),
+    "event-addzap": new Set(["Grade 6", "Grade 7"]),
+    "event-block-and-tackle": new Set(["Grade 8"]),
+    "event-product-promotion": new Set(["Grade 9", "Grade 10", "Grade 11", "Grade 12"])
+  };
 
-        window.addEventListener('resize', () => {
-          const navLinks = document.querySelector('.nav-links');
-          if (window.innerWidth > 900) {
-            navLinks.classList.remove('show');
-          }
-        });
-      </script>
+  const eventInfo = {
+    "event-color-palette": { dateId: "event-aug04", label: "Color Palette" },
+    "event-art-space": { dateId: "event-aug04", label: "Art Space" },
+    "event-creative-writing": { dateId: "event-aug04", label: "Creative Writing" },
+    "event-dreamy-decor": { dateId: "event-aug04", label: "Dreamy Decor / Nail Art / Origami" },
+    "event-imagine-yourself-as": { dateId: "event-aug04", label: "Imagine Yourself As" },
+    "event-stick-space": { dateId: "event-aug05", label: "Stick Space / Clay Modelling" },
+    "event-carving": { dateId: "event-aug05", label: "Carving / Jewellery Making / Poetry Writing" },
+    "event-bookmark-frames": { dateId: "event-aug06", label: "Design a Bookmark & Frames and Tales" },
+    "event-freeze-moment": { dateId: "event-aug06", label: "Freeze a Moment (Art with Graffiti Style)" },
+    "event-open-instruments": { dateId: "event-aug06", label: "Open Instruments" },
+    "event-classical-dance": { dateId: "event-aug06", label: "Classical Dance" },
+    "event-dress-up": { dateId: "event-aug06", label: "Whirl and Twirl / Dress-Up" },
+    "event-dress-up-show": { dateId: "event-aug07", label: "Dress-Up Show" },
+    "event-orator-singer": { dateId: "event-aug11", label: "Orator or Singer" },
+    "event-adapt-a-tune": { dateId: "event-aug12", label: "Adapt-a-Tune" },
+    "event-mono-acting": { dateId: "event-aug13", label: "Mono Acting" },
+    "event-addzap": { dateId: "event-aug14", label: "Addzap (Team Event)" },
+    "event-block-and-tackle": { dateId: "event-aug14", label: "Block and Tackle" },
+    "event-product-promotion": { dateId: "event-aug14", label: "Product Promotion" }
+  };
+
+  function update() {
+    const selectedGrade = "Grade " + document.getElementById("class").value;
+
+    // Clear all event details initially
+    const eventCards = document.querySelectorAll(".event-card");
+    eventCards.forEach(card => {
+      const container = card.querySelector(".event-details");
+      container.innerHTML = ""; // Clear previous content
+    });
+
+    // Add only matching events for the selected grade
+    for (const [eventId, gradeSet] of Object.entries(eventToGradeMap)) {
+      if (gradeSet.has(selectedGrade) || gradeSet.has("Open for All")) {
+        const { dateId, label } = eventInfo[eventId];
+        const card = document.getElementById(dateId);
+        const eventDetailsDiv = card.querySelector(".event-details");
+
+        const eventElement = document.createElement("div");
+        eventElement.textContent = label;
+        eventDetailsDiv.appendChild(eventElement);
+      }
+    }
+
+    // Hide event-cards with no visible content
+    eventCards.forEach(card => {
+      const eventDetails = card.querySelector(".event-details");
+      card.style.display = eventDetails.children.length === 0 ? "none" : "block";
+    });
+  }
+
+  function toggleMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    if (window.innerWidth <= 900) {
+      navLinks.classList.toggle('show');
+    }
+  }
+
+  window.addEventListener('resize', () => {
+    const navLinks = document.querySelector('.nav-links');
+    if (window.innerWidth > 900) {
+      navLinks.classList.remove('show');
+    }
+  });
+</script>
+
     </body>
 
     </html>
