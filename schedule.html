@@ -14,64 +14,6 @@
           padding: 0;
         }
 
-        nav {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 10px 20px;
-          background: #fff;
-          border-bottom: 2px solid #ccc;
-        }
-
-        .nav-links {
-          list-style: none;
-          display: flex;
-          gap: 20px;
-        }
-
-        .nav-links li {
-          display: inline;
-        }
-
-        .nav-links a.option {
-          text-decoration: none;
-          padding: 8px 15px;
-          border-radius: 8px;
-          color: #333;
-          font-weight: bold;
-        }
-
-        .hamburger {
-          display: none;
-          font-size: 24px;
-          cursor: pointer;
-        }
-
-        #logo {
-          height: 50px;
-        }
-        @media (max-width: 900px) {
-          .nav-links {
-            display: none;
-            flex-direction: column;
-            background-color: white;
-            position: absolute;
-            top: 60px;
-            right: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-          }
-
-          .nav-links.show {
-            display: flex;
-          }
-
-          .hamburger {
-            display: block;
-          }
-        }
-
         .events-container {
           max-width: 1400px;
           margin: 40px auto;
@@ -84,7 +26,7 @@
           border: 2px solid black;
           border-radius: 15px;
           display: inline-block;
-          width: 4%;
+          width: 50px;
           text-align: center;
         }
 
@@ -150,6 +92,7 @@
           <h1 style="display: inline;">Choose a class: </h1>
         </label>
         <select id="class" name="class" onchange="update()">
+          <option value="0">All Events</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -236,26 +179,27 @@
 
 <script>
   const eventToGradeMap = {
-    "event-color-palette": new Set(["Grade 1"]),
-    "event-art-space": new Set(["Grade 4"]),
-    "event-creative-writing": new Set(["Grade 3"]),
-    "event-dreamy-decor": new Set(["Grade 5"]),
-    "event-imagine-yourself-as": new Set(["Grade 5"]),
-    "event-stick-space": new Set(["Grade 2"]),
-    "event-carving": new Set(["Grade 6"]),
-    "event-bookmark-frames": new Set(["Grade 3"]),
-    "event-freeze-moment": new Set(["Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12"]),
-    "event-open-instruments": new Set(["Open for All"]),
-    "event-classical-dance": new Set(["Open for All"]),
-    "event-dress-up": new Set(["Grade 1"]),
-    "event-dress-up-show": new Set(["Grade 2"]),
-    "event-orator-singer": new Set(["Grade 3"]),
-    "event-adapt-a-tune": new Set(["Grade 4"]),
-    "event-mono-acting": new Set(["Grade 5"]),
-    "event-addzap": new Set(["Grade 6", "Grade 7"]),
-    "event-block-and-tackle": new Set(["Grade 8"]),
-    "event-product-promotion": new Set(["Grade 9", "Grade 10", "Grade 11", "Grade 12"])
-  };
+  "event-color-palette": new Set(["Grade 0", "Grade 1"]),
+  "event-art-space": new Set(["Grade 0", "Grade 4"]),
+  "event-creative-writing": new Set(["Grade 0", "Grade 3"]),
+  "event-dreamy-decor": new Set(["Grade 0", "Grade 5"]),
+  "event-imagine-yourself-as": new Set(["Grade 0", "Grade 5"]),
+  "event-stick-space": new Set(["Grade 0", "Grade 2"]),
+  "event-carving": new Set(["Grade 0", "Grade 6"]),
+  "event-bookmark-frames": new Set(["Grade 0", "Grade 3"]),
+  "event-freeze-moment": new Set(["Grade 0", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12"]),
+  "event-open-instruments": new Set(["Grade 0", "Open for All"]),
+  "event-classical-dance": new Set(["Grade 0", "Open for All"]),
+  "event-dress-up": new Set(["Grade 0", "Grade 1"]),
+  "event-dress-up-show": new Set(["Grade 0", "Grade 2"]),
+  "event-orator-singer": new Set(["Grade 0", "Grade 3"]),
+  "event-adapt-a-tune": new Set(["Grade 0", "Grade 4"]),
+  "event-mono-acting": new Set(["Grade 0", "Grade 5"]),
+  "event-addzap": new Set(["Grade 0", "Grade 6", "Grade 7"]),
+  "event-block-and-tackle": new Set(["Grade 0", "Grade 8"]),
+  "event-product-promotion": new Set(["Grade 0", "Grade 9", "Grade 10", "Grade 11", "Grade 12"])
+};
+
 
   const eventInfo = {
     "event-color-palette": { dateId: "event-aug04", label: "Color Palette" , link: "events.html#img-3"},
@@ -278,7 +222,7 @@
     "event-block-and-tackle": { dateId: "event-aug14", label: "Block and Tackle" , link: "events.html#img-26"},
     "event-product-promotion": { dateId: "event-aug14", label: "Product Promotion" , link: "events.html#img-27"}
   };
-
+  
   function update() {
     const selectedGrade = "Grade " + document.getElementById("class").value;
 
@@ -301,7 +245,7 @@
         eventElement.href = link;
         eventElement.style.cursor = "pointer";
         eventElement.style.display = "block";
-
+        eventElement.target = "_blank";
         eventElement.style.textDecoration = "none";
         eventDetailsDiv.appendChild(eventElement);
       }
@@ -327,6 +271,19 @@
       navLinks.classList.remove('show');
     }
   });
+for (const [eventId, { link, label }] of Object.entries(eventInfo)) {
+  const elem = document.getElementById(eventId);
+  if (elem) {
+    const anchor = document.createElement("a");
+    anchor.href = link;
+    anchor.textContent = label;
+    anchor.style.textDecoration = "none";
+    anchor.style.display = "block";
+    anchor.target = "_blank";
+    elem.innerHTML = ""; // Clear existing text
+    elem.appendChild(anchor);
+  }
+}
 </script>
 
     </body>

@@ -8,6 +8,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Cuprum:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
+    img {
+      display: block;
+    }
+
     body {
       font-family: 'Cuprum', sans-serif;
       margin: 0;
@@ -44,8 +48,8 @@
 <body>
   <nav>
     <a href="https://seedacademy.in/" target="_blank">
-        <img src="logo.png" id="logo" alt="Logo" >
-        </a>
+      <img src="logo.png" id="logo" alt="Logo">
+    </a>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
     <ul class="nav-links">
       <li><a class="option" href="index.html">Home</a></li>
@@ -85,6 +89,7 @@
     <img src="27.png" alt="Event 27" class="event-image" id="img-27">
   </div>
 
+  <!-- Navigation and scroll behavior scripts -->
   <script>
     function toggleMenu() {
       const navLinks = document.querySelector('.nav-links');
@@ -97,6 +102,19 @@
       const navLinks = document.querySelector('.nav-links');
       if (window.innerWidth > 900) {
         navLinks.classList.remove('show');
+      }
+    });
+
+    // Smooth scroll to anchor after full load
+    window.addEventListener("load", function () {
+      const hash = window.location.hash;
+      if (hash) {
+        setTimeout(() => {
+          const target = document.querySelector(hash);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100); // You can increase to 200-300 if still buggy
       }
     });
   </script>
