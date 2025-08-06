@@ -296,9 +296,13 @@
         const card = document.getElementById(dateId);
         const eventDetailsDiv = card.querySelector(".event-details");
 
-        const eventElement = document.createElement("div");
+        const eventElement = document.createElement("a");
         eventElement.textContent = label;
-        eventElement.setAttribute("onclick", "window.location.href = " + "'"+link+"'");
+        eventElement.href = link;
+        eventElement.style.cursor = "pointer";
+        eventElement.style.display = "block";
+
+        eventElement.style.textDecoration = "none";
         eventDetailsDiv.appendChild(eventElement);
       }
     }
